@@ -29,7 +29,9 @@ print("la circunferencia es : " , circunferencia)
 Nombre = input(" Coloque su nombre porfavor :")
 print("¡Mucho gusto ! " + Nombre)
 Segundos_totales = int(input("Introduces las cantidad de segundos : "))
-# 3600 Segundos = 1 hora
+
+#3600 Segundos = 1 hora
+
 Horas = Segundos_totales / 3600
 print(f"{Segundos_totales} Segundos equivale a {Horas:.2f} horas.")
 
