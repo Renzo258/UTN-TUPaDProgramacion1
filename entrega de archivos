@@ -1,0 +1,98 @@
+# =====================================================================
+# ACTIVIDAD 1: Crear archivo inicial con productos
+# =====================================================================
+# Creamos el archivo "productos.txt" con tres productos iniciales
+with open("productos.txt", "w", encoding="utf-8") as archivo:
+    archivo.write("Lapicera,120.5,30\n")
+    archivo.write("Cuaderno,450.0,15\n")
+    archivo.write("Goma de borrar,80.0,50\n")
+
+print("--- Actividad 1: Archivo 'productos.txt' creado con éxito ---\n")
+
+
+# =====================================================================
+# ACTIVIDAD 3: Agregar productos desde teclado
+# =====================================================================
+# Pedimos al usuario que ingrese un nuevo producto y lo agregamos con modo 'a' (append)
+print("--- Actividad 3: Agregar un nuevo producto ---")
+nombre_nuevo = input("Ingrese el nombre del nuevo producto: ")
+precio_nuevo = input("Ingrese el precio: ")
+cantidad_nueva = input("Ingrese la cantidad: ")
+
+with open("productos.txt", "a", encoding="utf-8") as archivo:
+    # Escribimos el nuevo producto al final del archivo
+    archivo.write(f"{nombre_nuevo},{precio_nuevo},{cantidad_nueva}\n")
+
+print("Producto agregado correctamente.\n")
+
+
+# =====================================================================
+# ACTIVIDAD 2 y 4: Leer, mostrar y cargar en una lista de diccionarios
+# =====================================================================
+# Lista para almacenar los productos como diccionarios
+productos = []
+
+print("--- Actividad 2 y 4: Lectura y formato de productos ---")
+with open("productos.txt", "r", encoding="utf-8") as archivo:
+    for linea in archivo:
+        # Limpiamos saltos de línea y separamos por coma
+        linea_limpia = linea.strip()
+        
+        # Ignoramos líneas vacías si las hubiera
+        if not linea_limpia:
+            continue
+            
+        datos = linea_limpia.split(",")
+        
+        # Guardamos las variables para usarlas más fácil
+        nombre = datos[0]
+        precio = float(datos[1])
+        cantidad = int(datos[2])
+        
+        # Actividad 2: Mostrar con el formato solicitado
+        print(f"Producto: {nombre} | Precio: ${precio} | Cantidad: {cantidad}")
+        
+        # Actividad 4: Cargar en la lista de diccionarios
+        dicc_producto = {
+            "nombre": nombre,
+            "precio": precio,
+            "cantidad": cantidad
+        }
+        productos.append(dicc_producto)
+
+print(f"\nLista de diccionarios cargada en memoria ({len(productos)} productos).\n")
+
+
+# =====================================================================
+# ACTIVIDAD 5: Buscar producto por nombre
+# =====================================================================
+print("--- Actividad 5: Buscar producto ---")
+busqueda = input("Ingrese el nombre del producto que desea buscar: ")
+encontrado = False
+
+# Recorremos la lista de diccionarios
+for prod in productos:
+    # Usamos .lower() para que la búsqueda no sea sensible a mayúsculas/minúsculas
+    if prod["nombre"].lower() == busqueda.lower():
+        print("\n¡Producto encontrado!")
+        print(f"Nombre: {prod['nombre']}")
+        print(f"Precio: ${prod['precio']}")
+        print(f"Cantidad: {prod['cantidad']}")
+        encontrado = True
+        break  # Cortamos el bucle si ya lo encontramos
+
+if not encontrado:
+    print(f"\nError: El producto '{busqueda}' no se encuentra en el sistema.")
+print()
+
+
+# =====================================================================
+# ACTIVIDAD 6: Guardar los productos actualizados (Sobrescribir)
+# =====================================================================
+print("--- Actividad 6: Guardando cambios en el archivo ---")
+# Abrimos en modo 'w' para sobrescribir con el contenido actual de la lista
+with open("productos.txt", "w", encoding="utf-8") as archivo:
+    for prod in productos:
+        archivo.write(f"{prod['nombre']},{prod['precio']},{prod['cantidad']}\n")
+
+print("Archivo 'productos.txt' actualizado con éxito desde la lista de diccionarios.")
